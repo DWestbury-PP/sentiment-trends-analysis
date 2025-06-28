@@ -1,0 +1,60 @@
+# Sentiment Analysis with LLM
+
+This project will be used to run experiments that can help to determine whether Financial Market News sentiments can become a reliable and useful data metric to add to quantitative trading strategies.
+
+### Tech Foundation:
+* The foundation for experimentation will be a Python 3.11 in a Jupyter Notebook format
+* We will use common libraries for data analytics, such as Pandas, Numpy, etc.
+* We will require Web API Access to:
+  - A reliable and trusted source of FREE historical market data for one or more symbols (e.g., One year of data for stock symbol INTC (Intel Corporation), the specific year used is not critical, but we will need to align other data sources with the same time frame, so this may become a gating factor)  
+  - A reliable and trusted source for FREE historical news related to the same time horizon and stock symbol(s) that we are sourcing from Market Data
+
+### The Retrieval & Retention process
+* All of the data that we retrieve from public APIs needs to be stored into a local database, which will ensure the best performance for calculations
+* From the market data we will build a simple, two dimensional dataset with the following columns per symbol, and rows per day:
+  - Opening price at the beginning of the trading day ,as "O"
+  - Highest price achieved throughout the day, as "H"
+  - Lowest price seen throughout the day, as "L"
+  - Closing price at the close of trading, as "C"
+  - Total volume traded throughout the day, as "D"
+* Using the daily snapshot that was prepared from the previous step above, we need to calculate the following columns per symbol, and row per day:
+  - Simple Moving Average for the day, as "SMA1"
+  - Simple Moving Average over two days, as "SMA2"
+  - Simple Moving Average over three days, as "SMA3"
+  - Simple Moving Average over four days, as "SMA4"
+  - Simple Moving Average over five days, as "SMA5"
+  - Simple Moving Average over six days, as "SMA6"
+  - Simple Moving Average over seven days, as "SMA7"
+  - Simple Moving Average over eight days, as "SMA8"
+  - Rate of Change the day, as "ROC1"
+  - Rate of Change the day over two days, as "ROC2"
+  - Rate of Change the day over three days, as "ROC3"
+  - Rate of Change the day over four days, as "ROC4"
+  - Rate of Change the day over five days, as "ROC5"
+  - Rate of Change the day over six days, as "ROC6"
+  - Rate of Change the day over seven days, as "ROC7"
+  - Rate of Change the day over eight days, as "ROC8"
+* Using the Financial Market News that we've collected, we create a data pipeline that leverages a LLM that has been prepared to perform NLP Sentiment analysis for market news to prepare the following columns per symbol and rows per day
+  - Sentiment at market open, as "SMO"
+  - Sentiment at mid-day, as "SMD"
+  - Sentiment at market close, as "SMC"
+  - Sentiment of holistic market sector, as "SMS"
+  - Sentiment of direct competitor, as "SDC"
+* Ideally, sentiment will need to be mapped to a scale that ranges from -1 to 1, with float 4 precision
+* All of the data and calculations above need to be stored in our local database, which ensure faster retrieval
+
+
+### Working with the Resulting data
+* We will create a powerful tool that enables us to plot and visualize all of the data that we've collected, as well as all of our calculations that we've applied
+* Our data plot visualization should should include the following details:
+  - The Horizontal (X) axis will always be the date
+  - However, the Vertical (Y) axis can vary, depending on whether the metrics that were chosen to be plotted contain prices, Rate of Change or Sentiment values.
+  - We need to enable the user to be able pick and choose from any combination of the datapoints we have collected.
+  - Perhaps we should allow the user to develop function calculations, where `y = f(x)`
+  - The user should be provided with tools that help them to determine the best intraday buy and sell points, which will be plotted as a separate chart that uses the same time (X) axis.
+
+
+### Training versus Testing
+* Once we have worked out the kinks with all the above preparations, we want to be able to run through a variety of test scenarios
+* We can use ~40-50% of the dataset to develop a hypothetical quantitative approach towards buys and sells, then we can apply the same approach to the remaining 50-60% of the data to see which strategies are most profitable.
+

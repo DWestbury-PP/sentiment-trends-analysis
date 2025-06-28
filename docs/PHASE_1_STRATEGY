@@ -1,0 +1,108 @@
+# PHASE 1 STRATEGY - Technical Decisions & Implementation Plan
+
+## Project Scope Decisions
+
+### Data Sources & APIs
+
+**1. Market Data API - DECIDED: Yahoo Finance**
+- **Decision**: Use Yahoo Finance via the `yfinance` Python library
+- **Rationale**: Well-established, free, reliable, and widely used in the community
+- **Implementation**: `pip install yfinance`
+- **Reference**: [yfinance documentation](https://ranaroussi.github.io/yfinance/)
+
+**2. News Data API - RESEARCH REQUIRED**
+Based on web research, top options for financial news APIs include:
+
+**Alpha Vantage** (Recommended)
+- **Pros**: 
+  - Offers both market data AND news/sentiment APIs
+  - NASDAQ-licensed provider
+  - Includes sentiment analysis built-in
+  - Free tier available (500 requests/day)
+- **Cons**: Rate limits on free tier
+- **Reference**: [Alpha Vantage](https://www.alphavantage.co/)
+
+**Alternative Options to Consider**:
+- NewsAPI (general news, limited financial focus)
+- Financial Modeling Prep (comprehensive financial data)
+- Polygon.io (real-time market data with news)
+
+**RECOMMENDATION**: Start with Alpha Vantage since it provides both market data backup and news/sentiment in one API, which aligns perfectly with our needs.
+
+### Technical Infrastructure
+
+**3. Database Choice - DECIDED: PostgreSQL**
+- **Decision**: PostgreSQL in a Docker container
+- **Rationale**: Robust, excellent for time-series data, supports complex queries
+- **Implementation**: Docker Compose setup with PostgreSQL 15+
+
+**4. LLM for Sentiment Analysis - DECIDED: OpenAI**
+- **Decision**: Use OpenAI GPT-4o and GPT-4o-mini
+- **Rationale**: State-of-the-art performance, reliable API, cost-effective with mini version
+- **Implementation**: OpenAI API integration with fallback between models
+
+### Data Processing Strategy
+
+**5. News Aggregation - DISCUSSION NEEDED**
+- **Status**: Requires thorough discussion
+- **Key Questions**:
+  - How to weight multiple news articles per day?
+  - Should we use article publication time vs. market impact time?
+  - How to handle conflicting sentiments in the same time window?
+- **Proposed Approach**: Weighted average based on article source credibility and recency
+
+**6. Market Hours Alignment - DECIDED: Standard Trading Hours**
+- **Decision**: Align sentiment timing with US market hours (EST)
+  - SMO (Sentiment at Market Open): 9:30 AM EST
+  - SMD (Sentiment Mid-Day): 12:30 PM EST  
+  - SMC (Sentiment at Market Close): 4:00 PM EST
+- **Implementation**: Time-based filtering of news articles
+
+**7. Competitor Tracking - DECIDED: AMD & NVIDIA**
+- **Decision**: Track AMD and NVIDIA as Intel competitors for SDC metric
+- **Symbols**: INTC (primary), AMD, NVDA (competitors)
+- **Implementation**: Separate sentiment analysis for competitor news
+
+### Project Scope
+
+**8. Data Range - DECIDED: 1 Year Post-2020**
+- **Decision**: One year of historical data, any year after 2020
+- **Rationale**: Sufficient for initial analysis, recent enough for relevant patterns
+- **Implementation**: Select year based on data availability and quality
+
+**9. Symbol Focus - DECIDED: Single Symbol Start**
+- **Decision**: Begin with Intel (INTC) only
+- **Rationale**: Simplifies initial development and testing
+- **Future**: Design architecture to support multiple symbols later
+
+## Implementation Priority
+
+### Phase 1A: Data Pipeline Setup
+1. Set up PostgreSQL container
+2. Implement Yahoo Finance data ingestion (OHLCV)
+3. Set up Alpha Vantage news data collection
+4. Design database schema for market and news data
+
+### Phase 1B: Calculations & Analysis
+1. Implement SMA calculations (1-8 day periods)
+2. Implement ROC calculations (1-8 day periods)
+3. Set up OpenAI integration for sentiment analysis
+4. Develop sentiment scoring pipeline (-1 to +1 scale)
+
+### Phase 1C: Visualization & Analysis Tools
+1. Create Jupyter notebook framework
+2. Implement data visualization tools
+3. Build buy/sell signal analysis tools
+4. Develop backtesting framework
+
+## Next Steps
+1. Set up development environment
+2. Create PostgreSQL Docker container
+3. Implement basic data ingestion pipeline
+4. Test API integrations (Yahoo Finance, Alpha Vantage, OpenAI)
+
+## Outstanding Questions Requiring Discussion
+1. **News Aggregation Strategy**: How to handle multiple news articles per time window?
+2. **Sentiment Weighting**: Should we weight news by source reliability or article length?
+3. **Market Sector Sentiment (SMS)**: How to define and track "holistic market sector" for semiconductors?
+4. **Data Quality Filters**: What criteria should we use to filter low-quality or irrelevant news? 
