@@ -13,7 +13,8 @@ def get_api_key(service_name):
     
     key_map = {
         'openai': 'OPENAI_API_KEY',
-        'alpha_vantage': 'ALPHA_VANTAGE_API_KEY'
+        'alpha_vantage': 'ALPHA_VANTAGE_API_KEY',
+        'eod_historical': 'EOD_HISTORICAL_API_KEY'
     }
     
     env_var = key_map.get(service_name.lower())

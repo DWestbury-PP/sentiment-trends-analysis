@@ -167,31 +167,37 @@ class AggressiveRateLimiter:
 
 This approach gives you **real historical data** for strategy validation while maintaining **cost control** and **technical flexibility**.
 
-## 🔄 **PENDING DECISION: News Data Provider**
+## ✅ **DECISION COMPLETE: EOD Historical Data Selected**
 
-### **Current Status: Testing GDELT (Free)**
-- **Attempting**: GDELT Project integration for free historical news
-- **Challenge**: Connection timeouts and reliability issues
-- **Benefits**: $0 collection cost, unlimited reprocessing of sentiment
-- **Strategy**: Improve error handling, retries, and rate limiting
+### **GDELT Testing Results**
+- **❌ Persistent Timeouts**: Despite robust retry logic, connection timeouts continued
+- **❌ Unreliable Infrastructure**: API unavailable when needed for production
+- **✅ Good Strategic Test**: Proved free option thoroughly before switching
 
-### **Backup Plan: EOD Historical Data ($19.99/month)**
-- **Reliable**: Proven infrastructure with 6+ years of historical data
-- **Built-in sentiment**: Pre-computed scores (saves OpenAI costs)
-- **Cost**: $240/year ongoing vs one-time GDELT collection
-- **Switch trigger**: If GDELT reliability issues cannot be resolved
+### **EOD Historical Data Implementation**
+- **✅ Proven Reliability**: Institutional-grade infrastructure, no timeouts
+- **✅ Built-in Sentiment**: Pre-computed sentiment scores (-1 to 1 scale)
+- **✅ Quality Sources**: Bloomberg, Reuters, CNBC, professional financial news
+- **✅ Seamless Integration**: Decoupled architecture enabled smooth transition
 
-### **Cost Analysis**:
+### **Final Cost Analysis**:
 ```
-GDELT Approach (if working):
-- News collection: $0
+GDELT Approach (tested, failed):
+- News collection: $0 (but unreliable)
 - Sentiment processing: $500-800 (one-time)
-- Reprocessing: $0 (data already owned)
-- Total 5-year cost: $500-800
+- Reliability risk: High (timeouts, incomplete data)
 
-EOD Approach:
+EOD Approach (implemented):
 - News + sentiment: $240/year
+- Reliability: High (institutional grade)
+- No OpenAI costs needed (sentiment included)
 - Total 5-year cost: $1,200
 ```
 
-**Decision criteria**: Focus on GDELT reliability improvements first, fallback to EOD if needed. 
+### **Outcome: Better Than Originally Planned**
+- **Higher Reliability**: Professional API infrastructure
+- **Lower Processing Costs**: No OpenAI sentiment costs needed
+- **Same Architecture**: Decoupled design worked perfectly for the switch
+- **Professional Data**: Bloomberg/Reuters vs filtered web scraping
+
+**🎉 Result**: EOD integration complete - ready for strategy development with reliable historical sentiment data! 
