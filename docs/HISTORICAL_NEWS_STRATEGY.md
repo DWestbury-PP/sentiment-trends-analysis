@@ -165,4 +165,33 @@ class AggressiveRateLimiter:
 4. **Week 3**: Validate strategy with historical data
 5. **Week 4**: Optimize and prepare for live trading
 
-This approach gives you **real historical data** for strategy validation while maintaining **cost control** and **technical flexibility**. 
+This approach gives you **real historical data** for strategy validation while maintaining **cost control** and **technical flexibility**.
+
+## 🔄 **PENDING DECISION: News Data Provider**
+
+### **Current Status: Testing GDELT (Free)**
+- **Attempting**: GDELT Project integration for free historical news
+- **Challenge**: Connection timeouts and reliability issues
+- **Benefits**: $0 collection cost, unlimited reprocessing of sentiment
+- **Strategy**: Improve error handling, retries, and rate limiting
+
+### **Backup Plan: EOD Historical Data ($19.99/month)**
+- **Reliable**: Proven infrastructure with 6+ years of historical data
+- **Built-in sentiment**: Pre-computed scores (saves OpenAI costs)
+- **Cost**: $240/year ongoing vs one-time GDELT collection
+- **Switch trigger**: If GDELT reliability issues cannot be resolved
+
+### **Cost Analysis**:
+```
+GDELT Approach (if working):
+- News collection: $0
+- Sentiment processing: $500-800 (one-time)
+- Reprocessing: $0 (data already owned)
+- Total 5-year cost: $500-800
+
+EOD Approach:
+- News + sentiment: $240/year
+- Total 5-year cost: $1,200
+```
+
+**Decision criteria**: Focus on GDELT reliability improvements first, fallback to EOD if needed. 
