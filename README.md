@@ -129,8 +129,11 @@ sentiment_trends/
 │   ├── __init__.py
 │   └── database.py         # Database connections and API management
 ├── notebooks/              # Analysis and development notebooks
-│   ├── 01_environment_setup.ipynb       # Environment verification
-│   └── 02_data_ingestion_pipeline.ipynb # Complete data pipeline
+│   ├── 01_environment_setup.ipynb           # Environment verification
+│   ├── 02_data_ingestion_pipeline.ipynb     # Complete data pipeline
+│   ├── 03_historical_data_backfill.ipynb    # Historical market data collection
+│   ├── 04_historical_news_collection.ipynb  # Real historical news & sentiment
+│   └── 05_trading_strategy_development.ipynb # Strategy backtesting & optimization
 ├── sql/init/               # Database schema
 │   └── 01_create_tables.sql # Production database schema
 ├── data/                   # Local data storage (empty by design)
@@ -179,13 +182,18 @@ sentiment_trends/
 - **Technical Coverage**: 1,638 total records (819 market + 819 indicators)
 - **Performance**: Optimized batch processing with progress monitoring
 
-### 📋 Phase 1D: Trading Signals (PLANNED)
-- Trading signal generation algorithms
-- Backtesting framework
-- Performance metrics and analysis
-- Strategy optimization
+### 🔄 Phase 1D: Historical News Collection (IN PROGRESS)
+- **Real Historical Data**: GDELT Project integration for actual financial news
+- **Decoupled Architecture**: Separate news collection from sentiment processing  
+- **Aggressive OpenAI Processing**: 10-20 second intervals with exponential backoff
+- **Cost Optimization**: Reprocess sentiment without refetching expensive news data
 
-### 📋 Phase 1E: Automation (PLANNED)
+### 📊 Phase 1E: Trading Strategy Development (READY)
+- **Multi-Signal Engine**: Real sentiment + Technical + Competitive analysis
+- **Advanced Backtesting**: Risk-adjusted position sizing with performance metrics
+- **Strategy Optimization**: Parameter tuning and ensemble recommendations
+
+### 📋 Phase 1F: Production Automation (PLANNED)
 - Automated daily data collection
 - Performance monitoring and alerting
 - Visualization dashboard
@@ -227,13 +235,13 @@ SDC (Competitors): -0.4 (AMD/NVDA competitive pressure)
 2. Select **sentiment_trends** kernel for notebooks
 3. Ensure Python interpreter points to your virtual environment
 
-## 📋 Next Session: Phase 1C Launch
+## 📋 Next Session: Phase 1D Launch
 
-**Objective**: Historical Data Backfill Implementation
-- Design batch processing for 1-year historical data
-- Implement rate limiting and error recovery
-- Create progress monitoring and validation
-- Multi-symbol processing expansion
+**Objective**: Historical News Collection & Real Sentiment Analysis
+- Implement GDELT historical news integration
+- Build decoupled sentiment processing architecture
+- Create aggressive OpenAI API optimization
+- Validate strategy with real historical sentiment data
 
 ## Contributing
 
