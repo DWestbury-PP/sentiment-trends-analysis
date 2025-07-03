@@ -1,173 +1,124 @@
 # Sentiment Trends Analysis
 
-A **production-ready** quantitative trading strategy platform that combines financial market data with AI-powered sentiment analysis of financial news to generate trading signals for semiconductor stocks (INTC, AMD, NVDA).
+A quantitative trading strategy platform that combines financial market data with AI-powered sentiment analysis of financial news to generate trading signals for semiconductor stocks (INTC, AMD, NVDA).
 
-## 🎯 Project Status: **ANALYSIS PIPELINE COMPLETE** ✅
+## Project Goals
 
-✅ **Full year market data** with 819 records across 399 days (May 2024 - June 2025)  
-✅ **Recent news collection** with 606 articles from May-June 2025  
-✅ **Sentiment processing** with 48 analyzed records across all symbols  
-✅ **Interactive visualization suite** with comprehensive market analysis  
-✅ **Production-grade database integration** with optimized queries  
-✅ **Trading strategy framework** with backtesting capabilities  
-🚀 **Ready for sentiment data expansion and advanced strategy development**
+This system analyzes the relationship between financial market news sentiment and quantitative trading opportunities, focusing on semiconductor stocks. The primary objectives are:
 
-## Strategic Philosophy: **Expand Sentiment to Match Market Data**
+1. **Data Integration**: Combine historical market data with news sentiment analysis to create comprehensive trading datasets
+2. **Sentiment Analysis**: Process financial news using AI to generate actionable sentiment scores across multiple market timing dimensions
+3. **Trading Strategy Development**: Create and backtest quantitative trading strategies using multi-factor signals
+4. **Scalable Architecture**: Build a system that can expand across timeframes, assets, and data sources
 
-This project has a **strong foundation** with **clear expansion opportunities**:
+## Current Status
 
-1. **✅ Complete Market Infrastructure** - Full year of market data operational
-2. **✅ Proven Sentiment Pipeline** - 48 records processed successfully, ready to scale  
-3. **✅ Working Analysis Framework** - All visualization and analysis tools functional
-4. **🎯 Sentiment Data Expansion** - Scale to match market data coverage
-5. **🚀 Advanced Trading Strategies** - Comprehensive backtesting with expanded dataset
+### Data Coverage
+- **Market Data**: 819 records spanning May 2024 to June 2025 (13 months)
+- **News Articles**: 606 articles collected from May-June 2025  
+- **Sentiment Analysis**: 48 processed records across all symbols
+- **Coverage Gap**: 5.9% sentiment coverage relative to market data (771 additional analyses needed)
 
-**Current Achievement**: Production-ready analysis system with full market data coverage and scalable sentiment processing pipeline.
+### System Components
+- **Database**: PostgreSQL with normalized schema for market data, news articles, and sentiment analysis
+- **Analysis Pipeline**: Complete data processing and visualization framework
+- **Sentiment Processing**: OpenAI GPT-4o-mini integration with custom 5-dimensional scoring system
+- **Visualization**: Interactive dashboards using Plotly for comprehensive market analysis
 
-## ✅ Major System Capabilities (July 1, 2025)
+### Performance Metrics
+- **NVDA**: +0.210% average daily return (outperformer)
+- **AMD**: +0.001% average daily return (stable)
+- **INTC**: -0.032% average daily return (underperformer)
+- **Average Daily Volume**: 135.9M shares across all symbols
+- **Sentiment Processing**: 82% average confidence score with 96% processing success rate
 
-### 🏆 **COMPREHENSIVE ANALYSIS PIPELINE** 
-- **Market Analysis**: Full year price, volume, returns analysis (May 2024 - June 2025)
-- **Sentiment Integration**: 48 sentiment records from recent period (May-June 2025)
-- **Strategy Framework**: Basic trading strategy analysis with performance metrics
-- **Visualization Suite**: Interactive Plotly dashboards for all analysis types
-- **Database Operations**: Multi-table joins working flawlessly
+## Architecture
 
-### 📊 **Data Coverage Achieved**
-- **Market Data**: 819 records across 3 symbols (INTC, AMD, NVDA)
-- **Date Coverage**: May 24, 2024 to June 27, 2025 (399 days - **over 1 year**)
-- **News Articles**: 606 articles collected (May 15 - June 28, 2025)
-- **Sentiment Records**: 48 processed (AMD: 16, INTC: 22, NVDA: 10)
-- **Coverage Opportunity**: Expand sentiment from 5.9% to 50%+ of market data
-
-### 📈 **Performance Metrics** (Full Year Market Data)
-- **NVDA Performance**: +0.210% daily average (best performer)
-- **AMD Performance**: +0.001% daily average (stable)
-- **INTC Performance**: -0.032% daily average (underperformer)
-- **Average Daily Volume**: 135,915,602 shares
-- **Daily Volatility**: 3.622% average across all symbols
-
-### 🔧 **Technical Systems Validated**
-- **Database Architecture**: PostgreSQL with normalized schema working perfectly
-- **Multi-table Joins**: market_data → symbols → processed_sentiment integration
-- **Analysis Framework**: Handles 800+ records with zero errors
-- **Visualization Engine**: Interactive Plotly dashboards with comprehensive metrics
-- **Sentiment Pipeline**: 48 records processed successfully, ready for scaling
-
-### 🎭 **Sentiment Analysis Status**
-- **48 sentiment records** successfully integrated with market data
-- **Recent coverage**: May-June 2025 period (1.5 months)
-- **Processing success**: 100% reliability across all sentiment analysis
-- **Expansion opportunity**: Backfill sentiment for full market data period
-
-## Project Overview
-
-This system **analyzes and visualizes** the relationship between **Financial Market News sentiments** and **quantitative trading opportunities**, focusing on **semiconductor stocks** (AMD, INTC, NVDA) with a complete market data foundation and scalable sentiment analysis pipeline.
-
-**🎯 Current Achievement**: Complete analysis pipeline with full year market data coverage and proven sentiment processing capabilities, ready for comprehensive sentiment data expansion.
-
-## ✅ Completed Features
-
-### 📊 Market Data Analysis
-- **Full year historical analysis** with OHLCV data processing (May 2024 - June 2025)
-- **Performance tracking** with daily returns (-26.06% to +23.82% range)
-- **Volume analysis** with 135M+ average daily volume
-- **Multi-symbol comparison** across semiconductor leaders
-
-### 📰 News & Sentiment Integration
-- **AI-powered sentiment scoring** using OpenAI GPT-4o-mini
-- **Recent news collection** (606 articles from May-June 2025)
-- **Processed sentiment analysis** (48 records across all symbols)
-- **Market data correlation** with sentiment-based insights ready for expansion
-
-### 🏗️ Production Analysis Infrastructure
-- **Automated data loading** from PostgreSQL database
-- **Multi-dimensional analysis** combining all data sources
-- **Interactive visualization suite** with Plotly dashboards
-- **Strategy analysis framework** with backtesting capabilities
-
-## Quick Start
-
-### 1. Environment Setup
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd sentiment_trends
-
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On macOS/Linux
-# or
-.venv\Scripts\activate     # On Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Register Jupyter kernel
-python -m ipykernel install --user --name sentiment_trends
+### Data Flow
+```
+Market Data (EOD API) → PostgreSQL → Analysis Pipeline → Trading Signals
+News Articles (EOD API) → Sentiment Processing (OpenAI) → PostgreSQL → Strategy Integration
 ```
 
-### 2. Environment Variables
+### Key Design Decisions
 
-Create a `.env` file in the project root:
+1. **Decoupled Architecture**: Separate news collection from sentiment processing to enable cost optimization and quality control
+2. **Multi-dimensional Sentiment**: 5-category SMO framework (Market Open, Mid-Day, Close, Sector, Competitor) for nuanced analysis
+3. **PostgreSQL Database**: Normalized schema supporting complex joins and time-series analysis
+4. **Modular Pipeline**: Jupyter notebooks for each processing stage, enabling iterative development and testing
 
-```bash
-# Database Configuration
-POSTGRES_PASSWORD=sentiment_secure_2024
-PGADMIN_PASSWORD=admin_secure_2024
+### Technology Stack
+- **Python 3.11** with pandas, numpy, SQLAlchemy 2.0+
+- **PostgreSQL 15** for time-series data storage
+- **EOD Historical Data API** for market data and news collection
+- **OpenAI GPT-4o-mini** for sentiment analysis
+- **Plotly** for interactive visualizations
+- **Docker** for database containerization
 
-# API Keys (Required for production use)
-OPENAI_API_KEY=sk-proj-your_openai_key_here
-EOD_API_KEY=your_eod_api_key_here
+## Implementation Approach
 
-# Database Connection
-DATABASE_URL=postgresql://trader:sentiment_secure_2024@127.0.0.1:5432/sentiment_trends
+### Sentiment Analysis Framework
+The system employs a custom SMO (Sentiment Market Operations) framework with five dimensions:
+- **SMO**: Market open impact prediction
+- **SMD**: Mid-day trading impact assessment  
+- **SMC**: Market close impact evaluation
+- **SMS**: Semiconductor sector impact measurement
+- **SDC**: Direct competitor impact analysis
 
-# Development Settings
-DEBUG=True
-LOG_LEVEL=INFO
-```
+### Quality Control
+- **Source Tiering**: Multi-tier quality assessment for news sources
+- **Relevance Scoring**: Automated article relevance calculation
+- **Confidence Metrics**: Sentiment analysis confidence scoring
+- **Validation Pipeline**: Multi-layer data quality validation
 
-### 3. Database Setup
+### Trading Integration
+- **Multi-factor Signals**: Combines sentiment (40%), technical indicators (40%), and competitive analysis (20%)
+- **Position Sizing**: Sentiment strength determines position size (5-25% of portfolio)
+- **Risk Management**: Confidence-based adjustments and dynamic thresholds
 
-```bash
-# Start PostgreSQL container
-docker-compose up -d postgres
+## Getting Started
 
-# The database schema will be automatically created on first run
-# Access PgAdmin (optional): http://localhost:8080
-```
+### Prerequisites
+- Python 3.11+
+- Docker and Docker Compose
+- API keys for OpenAI and EOD Historical Data
 
-### 4. API Keys Setup
+### Setup
+1. **Environment Setup**
+   ```bash
+   git clone <repository-url>
+   cd sentiment_trends
+   python -m venv .venv
+   source .venv/bin/activate  # macOS/Linux
+   pip install -r requirements.txt
+   ```
 
-- **OpenAI**: Get API key from [OpenAI Platform](https://platform.openai.com/api-keys)
-- **EOD Historical**: Get API key from [EOD Historical Data](https://eodhistoricaldata.com/)
+2. **Environment Variables**
+   Create `.env` file with required API keys and database credentials:
+   ```bash
+   POSTGRES_PASSWORD=sentiment_secure_2024
+   OPENAI_API_KEY=your_openai_key_here
+   EOD_API_KEY=your_eod_api_key_here
+   DATABASE_URL=postgresql://trader:sentiment_secure_2024@127.0.0.1:5432/sentiment_trends
+   ```
 
-### 5. Run the Analysis Pipeline
+3. **Database Setup**
+   ```bash
+   docker-compose up -d postgres
+   ```
 
-```bash
-# Start Jupyter Lab
-jupyter lab
-
-# Run the complete analysis:
-# Open: 09_visualization_and_analysis.ipynb
-# Execute all cells for comprehensive analysis
-
-# Individual notebook sequence (if needed):
-# 01 → 02 → 03 → 04 → 05 → 06 → 08 → 09
-```
+4. **Analysis Pipeline**
+   ```bash
+   jupyter lab
+   # Open: 09_visualization_and_analysis.ipynb
+   ```
 
 ## Project Structure
 
 ```
 sentiment_trends/
 ├── docs/                   # Project documentation
-│   ├── CURRENT_STATUS_AND_NEXT_STEPS.md     # Current capabilities and roadmap
-│   ├── PHASE_1_KEY_FINDINGS.md              # Historical achievements
-│   └── PHASE_1_DATA_COLLECTION_STRATEGY.md  # Technical strategy (archived)
 ├── src/                    # Core modules
-│   ├── __init__.py
 │   └── database.py         # Database connections and API management
 ├── notebooks/              # Analysis and development notebooks
 │   ├── 01_environment_setup.ipynb               # Environment verification
@@ -178,73 +129,81 @@ sentiment_trends/
 │   ├── 06_systematic_data_collection.ipynb      # Systematic data collection
 │   ├── 07_production_data_collection.ipynb      # Production data processing
 │   ├── 08_trading_strategy_development.ipynb    # Trading strategy framework
-│   └── 09_visualization_and_analysis.ipynb      # ⭐ MAIN ANALYSIS PIPELINE
+│   └── 09_visualization_and_analysis.ipynb      # Main analysis pipeline
 ├── sql/init/               # Database schema
-│   └── 01_create_tables.sql # Production database schema
-├── data/                   # Local data storage (empty by design)
 ├── docker-compose.yml      # PostgreSQL + PgAdmin containers
 ├── requirements.txt        # Python dependencies
 └── .env                    # Environment variables (create manually)
 ```
 
-## 📊 Current Analysis Capabilities
+## Current Capabilities
 
-### Market Analysis Dashboard
-- **Price Performance**: Full year daily returns analysis with volatility metrics
-- **Volume Analysis**: Trading volume patterns and anomaly detection
-- **Symbol Comparison**: Relative performance across AMD, INTC, NVDA
-- **Trend Analysis**: Multi-timeframe trend identification across full dataset
+### Market Analysis
+- Historical price and volume analysis across full dataset
+- Daily returns analysis with volatility metrics
+- Multi-symbol performance comparison
+- Trend identification and pattern analysis
 
-### Sentiment Integration Analysis
-- **Sentiment Correlation**: Recent news sentiment vs. stock performance correlation
-- **Coverage Analysis**: Current sentiment data availability (48 records) and expansion opportunities
-- **Quality Metrics**: Sentiment confidence and reliability scoring
-- **Expansion Potential**: Clear path to scale sentiment coverage to match market data
+### Sentiment Integration
+- AI-powered sentiment scoring using OpenAI GPT-4o-mini
+- Multi-dimensional sentiment analysis with confidence scoring
+- News article collection and quality filtering
+- Sentiment-market correlation analysis
 
 ### Trading Strategy Framework
-- **Signal Generation**: Basic trading signals from available sentiment data
-- **Performance Metrics**: Strategy backtesting with current data
-- **Risk Assessment**: Volatility and drawdown analysis using full market dataset
-- **Scalability**: Framework ready for enhanced sentiment data integration
+- Multi-factor signal generation combining sentiment, technical, and competitive analysis
+- Basic backtesting framework with performance metrics
+- Risk assessment with volatility and drawdown analysis
+- Position sizing based on signal strength and confidence
 
-### Dataset Readiness Assessment
-- **Coverage Evaluation**: Data completeness across market vs. sentiment dimensions
-- **Quality Scoring**: Automated quality assessment with expansion recommendations
-- **Gap Analysis**: Identification of sentiment processing opportunities
-- **Production Readiness**: Systematic evaluation for comprehensive trading system
+### Visualization and Analysis
+- Interactive dashboards for market performance analysis
+- Sentiment distribution and correlation visualizations
+- Trading strategy performance metrics
+- Data quality and coverage assessment tools
 
-## 🚀 Next Development Priorities
+## Next Steps
 
-### **Immediate (This Week)**
-1. **Sentiment Data Expansion**: Backfill sentiment analysis for full market data period
-2. **Coverage Enhancement**: Increase from 48 to 200+ sentiment records
-3. **Historical Analysis**: Process sentiment for major market events and earnings
-4. **Quality Validation**: Ensure sentiment quality across expanded dataset
+### Immediate Priorities (Next 2-4 weeks)
+1. **Sentiment Data Expansion**: Backfill sentiment analysis for historical market data to achieve 50%+ coverage
+2. **Quality Enhancement**: Improve sentiment processing reliability and confidence scoring
+3. **Historical Analysis**: Process sentiment for major market events and earnings periods
+4. **Coverage Validation**: Ensure sentiment quality across expanded dataset
 
-### **Short-term (Next Month)**
-1. **Advanced Trading Strategies**: Multi-factor models with comprehensive sentiment
-2. **Full Dataset Backtesting**: Historical performance analysis with expanded data
-3. **Risk Management**: Position sizing and portfolio optimization
-4. **Real-time Processing**: Live sentiment analysis and signal generation
+### Short-term Development (Next 1-3 months)
+1. **Advanced Trading Strategies**: Implement multi-factor models with comprehensive sentiment data
+2. **Full Dataset Backtesting**: Historical performance analysis with expanded sentiment coverage
+3. **Risk Management Enhancement**: Advanced position sizing and portfolio optimization
+4. **Real-time Processing**: Live sentiment analysis and signal generation capabilities
 
-### **Medium-term (Next Quarter)**
-1. **Live Trading Pilot**: Paper trading with real-time signals
-2. **Multi-asset Expansion**: AAPL, GOOGL, MSFT, TSLA integration
-3. **Machine Learning**: Sentiment prediction and market forecasting
-4. **Production Scaling**: High-frequency trading capabilities
+### Medium-term Opportunities (Next 3-6 months)
+1. **Live Trading Implementation**: Paper trading with real-time signals
+2. **Multi-asset Expansion**: Extend analysis to additional technology stocks
+3. **Machine Learning Integration**: Sentiment prediction and market forecasting models
+4. **Production Scaling**: High-frequency trading capabilities and infrastructure
 
-## Tech Stack
+### Long-term Vision (6+ months)
+1. **Proprietary Models**: Custom fine-tuned models for financial sentiment analysis
+2. **Multi-market Expansion**: International markets and additional asset classes
+3. **Automated Trading**: Full end-to-end automated trading system
+4. **Advanced Analytics**: Predictive modeling and complex strategy optimization
 
-- **Python 3.11** - Core language with comprehensive data science stack
-- **Jupyter Notebooks** - Interactive analysis and development
-- **PostgreSQL 15** - High-performance time-series database with multi-table joins
-- **Plotly** - Interactive visualization dashboards
-- **SQLAlchemy 2.0+** - Database ORM with modern async support
-- **EOD Historical Data API** - Professional financial news and market data
-- **OpenAI GPT-4o-mini** - Advanced sentiment analysis and market intelligence
-- **Docker** - Containerized database deployment
+## Data Sources and APIs
 
-## 📋 Document Status
+- **EOD Historical Data**: Market data and financial news ($19.99/month)
+- **OpenAI API**: GPT-4o-mini for sentiment analysis (~$0.02 per analysis)
+- **PostgreSQL**: Local database for data storage and analysis
+
+## Documentation
+
+- `docs/CURRENT_STATUS_AND_NEXT_STEPS.md`: Detailed current capabilities and development roadmap
+- `docs/DATABASE_SCHEMA_REFERENCE.md`: Complete database schema documentation
+- `docs/SENTIMENT_ANALYSIS_METHODOLOGY.md`: Comprehensive sentiment analysis approach
+- `docs/PHASE_1_KEY_FINDINGS.md`: Historical development achievements and lessons learned
+
+## Development Status
+
+**Current Version**: 3.0  
 **Last Updated**: July 1, 2025  
-**Version**: 3.0 (Updated with accurate data coverage information)  
-**Next Review**: After sentiment data expansion 
+**Primary Development Focus**: Sentiment data expansion to match market data coverage  
+**Next Milestone**: 400+ sentiment analyses to achieve 50% market data coverage 
